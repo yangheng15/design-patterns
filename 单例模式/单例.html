@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            class SingleDog {
+                constructor() {
+                    const fun = SingleDog.getInstance(); // 在es6中的静态方法是不可以通过new关键字 创建实例的
+                    if (!SingleDog.instance) {
+                        SingleDog.instance = new fun();
+                    }
+                    return SingleDog.instance;
+                }
+
+                static getInstance() {
+                    return class {
+                        setItem(value, key) {
+                            return localStorage.setItem(value, key);
+                        }
+
+                        getItem(key) {
+                            return localStorage.getItem(key);
+                        }
+                    };
+                }
+            }
+            const s = new SingleDog().setItem('key', 'yang');
+            const s1 = new SingleDog().setItem('key', 'yang1');
+            console.log(new SingleDog().getItem('key'));
+            console.log(s === s1);
+        </script>
+    </body>
+</html>
